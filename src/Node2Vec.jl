@@ -1,5 +1,6 @@
 module Node2Vec.jl
+    using LightGraphs
+    using Flux
 
-greet() = print("Hello World!")
 
 end # module
