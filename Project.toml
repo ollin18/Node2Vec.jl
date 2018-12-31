@@ -1,0 +1,7 @@
+name = "Node2Vec.jl"
+uuid = "e14762aa-0d31-11e9-133b-3b5bed57bf53"
+authors = ["Ollin Demian <ollin.langle@ciencias.unam.mx>"]
+version = "0.1.0"
+
+[deps]
+LightGraphs = "093fc24a-ae57-5d10-9952-331d41423f4d"
