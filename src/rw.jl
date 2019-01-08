@@ -45,6 +45,12 @@ end
 
 function preprocess_transition_probs(g)
     for node in 1:nv(g)
+        unnormalized_probs=[weigths[nbr] for nbr in neighbors(g,node)]
+        norm_const = sum(unnormalized_probs)
+        normalized_probs = unnormalized_probs / norm_const
+        alias_nodes[node] = alias_setup(normalized_probs)
+    end
+end
 
 
 
