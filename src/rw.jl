@@ -111,14 +111,9 @@ function alias_draw(J,q)
 end
 
 function learn_embeddings(walks)
-    str_walks=map(string,walks)
-    str_walks=map(y-> filter(x -> !isspace(x), y),str_walks)
-    writedlm("./data/str_walk.txt",str_walks,' ')
+    str_walks=map(x -> string.(x),walks)
+    writedlm("./data/str_walk.txt",str_walks)
     word2vec("./data/str_walk.txt","./data/str_walk-vec.txt",verbose=true)
     model=wordvectors("./data/str_walk-vec.txt")
-    get_vector(model,"[9, 27, 6, 16, 14, 6, 5, 20, 21, 22]")
-    get_vector(model,"</s>")
-    cosine_similar_words(model,"</s>")
     model
 end
-
