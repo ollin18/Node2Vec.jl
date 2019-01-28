@@ -1,22 +1,38 @@
-using LightGraphs,SimpleWeightedGraphs
+using LightGraphs,SimpleWeightedGraphs,Random,Word2Vec,DelimitedFiles
 
-function node2vec_walk(g, node, length)
+function node2vec_walk(g, node, len,p,q)
+    no,ed=preprocess_transition_probs(g,p,q)
     walk=[node]
-    while length(walk) < length
+    while length(walk) < len
         current=last(walk)
         neigh=neighbors(g, current)
         if length(neigh) > 0
+            if length(walk)==1
+                append!(walk,neigh[alias_draw(no[current][1],
+                                              no[current][2])])
+            else
+                prev=walk[length(walk)-1]
+                next=neigh[alias_draw(ed[(prev,current)][1],
+                                      ed[(prev,current)][2])]
+                append!(walk,next)
+            end
+        else
+            break
         end
     end
-
     return walk
 end
 
-function simulate_walks(g, num_walks, walk_length)
+function simulate_walks(g,num_walks,len,p,q)
     walks=[]
     nodes=vertices(g) |> collect
     for i in 1:num_walks
+        nodes=shuffle(nodes)
+        for node in nodes
+            push!(walks,node2vec_walk(g,node,len,p,q))
+        end
     end
+    walks
 end
 
 function get_alias_edge(g, src, dst,p,q)
@@ -93,3 +109,16 @@ function alias_draw(J,q)
         return J[kk]
     end
 end
+
+function learn_embeddings(walks)
+    str_walks=map(string,walks)
+    str_walks=map(y-> filter(x -> !isspace(x), y),str_walks)
+    writedlm("./data/str_walk.txt",str_walks,' ')
+    word2vec("./data/str_walk.txt","./data/str_walk-vec.txt",verbose=true)
+    model=wordvectors("./data/str_walk-vec.txt")
+    get_vector(model,"[9, 27, 6, 16, 14, 6, 5, 20, 21, 22]")
+    get_vector(model,"</s>")
+    cosine_similar_words(model,"</s>")
+    model
+end
+
