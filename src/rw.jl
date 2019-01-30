@@ -28,9 +28,7 @@ function simulate_walks(g,num_walks,len,p,q)
     nodes=vertices(g) |> collect
     for i in 1:num_walks
         nodes=shuffle(nodes)
-        for node in nodes
-            push!(walks,node2vec_walk(g,node,len,p,q))
-        end
+        push!(walks,map(x -> node2vec_walk(g,x,len,p,q),nodes))
     end
     walks
 end
@@ -112,8 +110,8 @@ end
 
 function learn_embeddings(walks)
     str_walks=map(x -> string.(x),walks)
-    writedlm("./data/str_walk.txt",str_walks)
-    word2vec("./data/str_walk.txt","./data/str_walk-vec.txt",verbose=true)
-    model=wordvectors("./data/str_walk-vec.txt")
+    writedlm("../data/str_walk.txt",str_walks)
+    word2vec("../data/str_walk.txt","../data/str_walk-vec.txt",verbose=true)
+    model=wordvectors("../data/str_walk-vec.txt")
     model
 end
