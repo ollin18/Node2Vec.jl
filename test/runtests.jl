@@ -1,9 +1,7 @@
 using Node2Vec, Word2Vec, TSne, DelimitedFiles, StatsBase
 
-tred=readdlm("../example/data/networks/adyacencias.csv",'|')
-Nodes=readdlm("../example/data/networks/los_nombres.csv",',')
-sen=readdlm("../example/data/networks/senators.csv",'|')
-partidos=readdlm("../example/data/networks/los_partidos.csv",'|')
+tred=readdlm("../data/networks/adyacencias.csv",'|')
+Nodes=readdlm("../data/networks/los_nombres.csv",',')
 
 dic_nodes = Dict{String,Int64}(Dict(Nodes[i]=>i for i in 1:length(Nodes)))
 g = SimpleWeightedGraph()
