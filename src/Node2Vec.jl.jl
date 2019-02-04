@@ -3,7 +3,9 @@ module Node2Vec.jl
     using LightGraphs
     using SimpleWeightedGraphs
     using Word2Vec
+    using Pkg
     using DelimitedFiles
+    Pkg.instantiate()
 
     import LightGraphs:
         _NI, AbstractGraph, AbstractEdge, AbstractEdgeIter,
