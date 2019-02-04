@@ -13,4 +13,12 @@ matrix:
         - julia: 1.0
         - julia: nightly
 notifications:
-email: false
+    email: false
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-6
+      - g++-6
+      - cmake
