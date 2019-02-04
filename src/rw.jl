@@ -24,17 +24,19 @@ function node2vec_walk(g, node, len,p,q)
 end
 
 function simulate_walks(g,num_walks,len,p,q)
-    walks=[]
+    walks=Array{Array}(undef,0)
     nodes=vertices(g) |> collect
     for i in 1:num_walks
         nodes=shuffle(nodes)
-        push!(walks,map(x -> node2vec_walk(g,x,len,p,q),nodes))
+        for node in nodes
+            push!(walks,node2vec_walk(g,node,len,p,q))
+        end
     end
     walks
 end
 
 function get_alias_edge(g, src, dst,p,q)
-    unnormalized_probs=[]
+    unnormalized_probs=Array{Float64}(undef,0)
     for dst_nbr in neighbors(g,dst)
         if dst_nbr == src
             append!(unnormalized_probs, g.weights[dst,dst_nbr]/p)
@@ -51,7 +53,7 @@ end
 
 function preprocess_transition_probs(g,p,q)
     alias_nodes=Dict()
-    for node in 1:nv(g)
+    for node in vertices(g)
         unnormalized_probs=[g.weights[node,nbr] for nbr in neighbors(g,node)]
         norm_const=sum(unnormalized_probs)
         normalized_probs=unnormalized_probs/norm_const
@@ -88,7 +90,7 @@ function alias_setup(probs)
         large=Int(pop!(larger))
 
         J[small]=large
-        q[large]=q[large] + q[small] - 1.0
+        q[large]=q[large]+q[small]-1.0
         if q[large] < 1.0
             append!(smaller,large)
         else
@@ -110,8 +112,8 @@ end
 
 function learn_embeddings(walks)
     str_walks=map(x -> string.(x),walks)
-    writedlm("../data/str_walk.txt",str_walks)
-    word2vec("../data/str_walk.txt","../data/str_walk-vec.txt",verbose=true)
-    model=wordvectors("../data/str_walk-vec.txt")
+    writedlm("/tmp/str_walk.txt",str_walks)
+    word2vec("/tmp/str_walk.txt","./data/str_walk-vec.txt",verbose=true)
+    model=wordvectors("./data/str_walk-vec.txt")
     model
 end
