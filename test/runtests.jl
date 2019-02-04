@@ -1,5 +1,4 @@
-#  using Node2Vec
-using Word2Vec, DelimitedFiles
+using Word2Vec
 
 tred=readdlm("../data/networks/adyacencias.csv",'|')
 Nodes=readdlm("../data/networks/los_nombres.csv",',')
