@@ -1,22 +1,17 @@
-using Word2Vec, SimpleWeightedGraphs, Pkg
-Pkg.instantiate()
+using Word2Vec, SimpleWeightedGraphs
 
 tred=readdlm("../data/networks/adyacencias.csv",'|')
 Nodes=readdlm("../data/networks/los_nombres.csv",',')
 
 dic_nodes = Dict{String,Int64}(Dict(Nodes[i]=>i for i in 1:length(Nodes)))
 g = SimpleWeightedGraph()
-G = Graph()
 last_node = Int64(length(Nodes))
 add_vertices!(g,last_node)
-add_vertices!(G,last_node)
 for n in
     1:Int64(size(tred)[1])
     add_edge!(g,dic_nodes[tred[n,1]],
               dic_nodes[tred[n,2]],
               tred[n,3])
-    add_edge!(G,dic_nodes[tred[n,1]],
-              dic_nodes[tred[n,2]])
 end
 
 walks=simulate_walks(g,5,80,2,2)

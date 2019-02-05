@@ -4,10 +4,5 @@ authors = ["Ollin Demian <ollin.langle@ciencias.unam.mx>"]
 version = "0.1.0"
 
 [deps]
-LightGraphs = "093fc24a-ae57-5d10-9952-331d41423f4d"
-Mmap = "a63ad114-7e13-5084-954f-fe012c677804"
-Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
-SNAPDatasets = "fc66bc1b-447b-53fc-8f09-bc9cfb0b0c10"
 SimpleWeightedGraphs = "47aef6b3-ad0c-573a-a1e2-d07658019622"
-TSne = "24678dba-d5e9-5843-a4c6-250288b04835"
 Word2Vec = "c64b6f0f-98cd-51d1-af78-58ae84944834"
