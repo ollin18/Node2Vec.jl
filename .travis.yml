@@ -12,8 +12,5 @@ git:
 matrix:
     allow_failures:
         - julia: nightly
-compiler:
-    - clang
-    - gcc
 notifications:
     email: false
