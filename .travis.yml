@@ -1,6 +1,5 @@
 # Documentation: http//docs.travis-ci.com/user/language/julia/
 language: julia
-install: make get-deps
 os:
     - linux
     - osx
@@ -13,6 +12,6 @@ matrix:
         - julia: nightly
 compiler:
     - clang
-      - gcc
+    - gcc
 notifications:
     email: false
