@@ -1,4 +1,4 @@
-using Word2Vec, SimpleWeightedGraphs, DelimitedFiles
+using Word2Vec, SimpleWeightedGraphs, DelimitedFiles, LightGraphs
 
 tred=readdlm("../data/networks/adyacencias.csv",'|')
 Nodes=readdlm("../data/networks/los_nombres.csv",',')
