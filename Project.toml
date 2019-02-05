@@ -4,5 +4,6 @@ authors = ["Ollin Langle <ollin.langle@ciencias.unam.mx>"]
 version = "0.1.0"
 
 [deps]
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 SimpleWeightedGraphs = "47aef6b3-ad0c-573a-a1e2-d07658019622"
 Word2Vec = "c64b6f0f-98cd-51d1-af78-58ae84944834"
