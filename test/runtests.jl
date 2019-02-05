@@ -1,4 +1,5 @@
 using Word2Vec, SimpleWeightedGraphs, DelimitedFiles, LightGraphs, Node2Vec
+using Random
 using Test
 
 tred=readdlm("../data/networks/adyacencias.csv",'|')
@@ -17,8 +18,8 @@ end
 
 walks=simulate_walks(g,5,80,2,2)
 @test typeof(walks) == Array{Array,1}
-@test @inferred length(length(walks)) == 640
-@test @inferred length(length(walks)[1]) == 8
+@test @inferred length(walks) == 640
+@test @inferred length(walks[1]) == 80
 model=learn_embeddings(walks)
 @test typeof(model) == WordVectors{String,Float64,Int64}
 vectors=model.vectors
