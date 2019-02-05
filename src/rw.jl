@@ -113,7 +113,7 @@ end
 function learn_embeddings(walks)
     str_walks=map(x -> string.(x),walks)
     writedlm("/tmp/str_walk.txt",str_walks)
-    word2vec("/tmp/str_walk.txt","./data/str_walk-vec.txt",verbose=true)
-    model=wordvectors("./data/str_walk-vec.txt")
+    word2vec("/tmp/str_walk.txt","/tmp/str_walk-vec.txt",verbose=true)
+    model=wordvectors("/tmp/str_walk-vec.txt")
     model
 end
