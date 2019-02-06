@@ -11,7 +11,7 @@
 
 This is a Julia implementation of [Node2Vec](https://cs.stanford.edu/people/jure/pubs/node2vec-kdd16.pdf) with [SimpleWeightedGraphs](https://github.com/JuliaGraphs/SimpleWeightedGraphs.jl) which is built upon [LightGraphs](https://github.com/JuliaGraphs/LightGraphs.jl).
 
-Node2Vec is an algorithm for network feature learning via biased random walks which we could describe as phrases with each visited node being a word. With that analogy we can easily see that the following step is to perform a Word2Vec Skip-gram approach to embed our nodes in a vector space. Is also to be noted that Node2Vec is a generalization of [DeepWalk](https://arxiv.org/pdf/1403.6652.pdf) setting $$p=q=1$$.
+Node2Vec is an algorithm for network feature learning via biased random walks which we could describe as phrases with each visited node being a word. With that analogy we can easily see that the following step is to perform a Word2Vec Skip-gram approach to embed our nodes in a vector space. Is also to be noted that Node2Vec is a generalization of [DeepWalk](https://arxiv.org/pdf/1403.6652.pdf) setting `p=q=1`.
 
 The implementation is stable but I'm still refactoring and writing documentation. It needs the LightGraphs and SimpleWeightedGraphs packages to get the weighted network structure and it is  very simple as we only have three functions, `node2vec_walk, simulate_walks, learn_embeddings`.
 
@@ -125,4 +125,24 @@ gplot(G,nodefillc=nodefillc,layout=spring_layout)
 ```
 ![](data/figs/network.png)
 
+## Citing
 
+If you find node2vec useful in your research, we ask that you cite the original paper:
+
+    @inproceedings{Grover:2016:NSF:2939672.2939754,
+        author = {Grover, Aditya and Leskovec, Jure},
+        title = {Node2Vec: Scalable Feature Learning for Networks},
+        booktitle = {Proceedings of the 22Nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+        series = {KDD '16},
+        year = {2016},
+        isbn = {978-1-4503-4232-2},
+        location = {San Francisco, California, USA},
+        pages = {855--864},
+        numpages = {10},
+        url = {http://doi.acm.org/10.1145/2939672.2939754},
+        doi = {10.1145/2939672.2939754},
+        acmid = {2939754},
+        publisher = {ACM},
+        address = {New York, NY, USA},
+        keywords = {feature learning, graph representations, information networks, node embeddings},
+    }
