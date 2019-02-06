@@ -1,5 +1,5 @@
 using Word2Vec, SimpleWeightedGraphs, DelimitedFiles, LightGraphs, Node2Vec
-using Random
+using Random, TSne
 using Test
 
 tred=readdlm("../data/networks/adyacencias.csv",'|')
