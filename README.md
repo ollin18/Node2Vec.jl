@@ -32,13 +32,17 @@ Then we can create our network; build a dictionary with the node names and add t
 ```julia
 dic_nodes = Dict{String,Int64}(Dict(Nodes[i]=>i for i in 1:length(Nodes)))
 g = SimpleWeightedGraph()
+G = Graph()
 last_node = Int64(length(Nodes))
 add_vertices!(g,last_node)
+add_vertices!(G,last_node)
 for n in
     1:Int64(size(tred)[1])
     add_edge!(g,dic_nodes[tred[n,1]],
               dic_nodes[tred[n,2]],
               tred[n,3])
+    add_edge!(G,dic_nodes[tred[n,1]],
+              dic_nodes[tred[n,2]])
 end
 ```
 
@@ -49,7 +53,7 @@ Now the Node2Vec algorithm. First the walks
 walks=simulate_walks(g,5,80,2,2)
 ```
 
-It is possible to create your own simulated walks with `node2vec_walk(network,node,length,p,q)`, the function `simulate_walks` randomly shuffles the initial node to avoid the [first-mover advantage](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.052301)shuffles the initial node to avoid the [first-mover advantage](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.052301).
+It is possible to create your own simulated walks with `node2vec_walk(network,node,length,p,q)`, the function `simulate_walks` randomly shuffles the initial node to avoid the [first-mover advantage](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.052301).
 
 Then we do the Word2Vec step through [Word2Vec.jl](https://github.com/JuliaText/Word2Vec.jl). It strangely takes the character "</s>" as a word so we cut it.
 
