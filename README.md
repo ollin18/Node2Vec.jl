@@ -51,7 +51,7 @@ walks=simulate_walks(g,5,80,2,2)
 
 It is possible to create your own simulated walks with `node2vec_walk(network,node,length,p,q)`, the function `simulate_walks` randomly shuffles the initial node to avoid the [first-mover advantage](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.052301)shuffles the initial node to avoid the [first-mover advantage](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.052301).
 
-Then we do the Word2Vec step through [Word2Vec.jl](https://github.com/JuliaText/Word2Vec.jl/blob/master/.travis.yml). It strangely takes the character "</s>" as a word so we cut it.
+Then we do the Word2Vec step through [Word2Vec.jl](https://github.com/JuliaText/Word2Vec.jl). It strangely takes the character "</s>" as a word so we cut it.
 
 ```julia
 model=learn_embeddings(walks)
@@ -111,13 +111,13 @@ scatter(dv[:,1],dv[:,2],legend=false,color=nodefillc,markersize=4,
         markerstrokewidth=0.3,alpha=0.6,show=true)
 title!("Mexican Senate - Node2Vec proj with p=2 q=2")
 ```
-![]("data/figs/node2vecp2q2.png")
+![](data/figs/node2vecp2q2.png)
 
 And compare to the original network (with an unweighted LightGraphs network)
 
 ```julia
 gplot(G,nodefillc=nodefillc,layout=spring_layout)
 ```
-![]("data/figs/network.png")
+![](data/figs/network.png)
 
 
