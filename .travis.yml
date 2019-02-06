@@ -15,4 +15,6 @@ matrix:
 notifications:
     email: false
 after_success:
-- julia -e 'cd(Pkg.dir("Node2Vec")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+    - julia -e 'cd(Pkg.dir("Node2Vec")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+env:
+    - CODECOV_TOKEN="d351530e-3dc7-45d3-8851-03ea0da9e933"
