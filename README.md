@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/ollin18/Node2Vec.jl.svg?branch=master)](https://travis-ci.com/ollin18/Node2Vec.jl)
+[![codecov](https://codecov.io/gh/ollin18/Node2Vec.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/ollin18/Node2Vec.jl)
 
 # Node2Vec.jl
 
