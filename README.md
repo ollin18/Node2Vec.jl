@@ -10,7 +10,7 @@
 
 This is a Julia implementation of [Node2Vec](https://cs.stanford.edu/people/jure/pubs/node2vec-kdd16.pdf) with [SimpleWeightedGraphs](https://github.com/JuliaGraphs/SimpleWeightedGraphs.jl) which is built upon [LightGraphs](https://github.com/JuliaGraphs/LightGraphs.jl).
 
-Node2Vec is an algorithm for network feature learning via biased random walks which we could describe as phrases with each visited node being a word. With that analogy we can easily see that the following step is to perform a Word2Vec Skip-gram approach to embed our nodes in a vector space. Is also to be noted that Node2Vec is a generalization of [DeepWalk](https://arxiv.org/pdf/1403.6652.pdf) setting $p=q=1$.
+Node2Vec is an algorithm for network feature learning via biased random walks which we could describe as phrases with each visited node being a word. With that analogy we can easily see that the following step is to perform a Word2Vec Skip-gram approach to embed our nodes in a vector space. Is also to be noted that Node2Vec is a generalization of [DeepWalk](https://arxiv.org/pdf/1403.6652.pdf) setting $$p=q=1$$.
 
 The implementation is stable but I'm still refactoring and writing documentation. It needs the LightGraphs and SimpleWeightedGraphs packages to get the weighted network structure and it is  very simple as we only have three functions, `node2vec_walk, simulate_walks, learn_embeddings`.
 
