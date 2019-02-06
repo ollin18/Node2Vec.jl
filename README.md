@@ -111,13 +111,13 @@ scatter(dv[:,1],dv[:,2],legend=false,color=nodefillc,markersize=4,
         markerstrokewidth=0.3,alpha=0.6,show=true)
 title!("Mexican Senate - Node2Vec proj with p=2 q=2")
 ```
-![]("../data/figs/node2vecp2q2.png")
+![]("data/figs/node2vecp2q2.png")
 
 And compare to the original network (with an unweighted LightGraphs network)
 
 ```julia
 gplot(G,nodefillc=nodefillc,layout=spring_layout)
 ```
-![]("../data/figs/network.png")
+![]("data/figs/network.png")
 
 
