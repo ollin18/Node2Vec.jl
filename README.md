@@ -22,23 +22,22 @@ First we read the data
 ```julia
 using TSne, Plots, Colors, GraphPlot, LightGraphs, SimpleWeightedGraphs,DelimitedFiles, StatsBase, Node2Vec
 
-tred=readdlm("data/networks/adyacencias.csv",'|')
-Nodes=readdlm("data/networks/los_nombres.csv",',')
-sen=readdlm("data/networks/senators.csv",'|')
-partidos=readdlm("data/networks/los_partidos.csv",'|')
+tred = readdlm("data/networks/adyacencias.csv",'|')
+Nodes = readdlm("data/networks/los_nombres.csv",',')
+sen = readdlm("data/networks/senators.csv",'|')
+partidos = readdlm("data/networks/los_partidos.csv",'|')
 ```
 
 Then we can create our network; build a dictionary with the node names and add the edges.
 
 ```julia
-dic_nodes = Dict{String,Int64}(Dict(Nodes[i]=>i for i in 1:length(Nodes)))
+dic_nodes = Dict{String,Int64}(Dict(Nodes[i]=>i for i in eachindex(Nodes)))
 g = SimpleWeightedGraph()
 G = Graph()
-last_node = Int64(length(Nodes))
-add_vertices!(g,last_node)
-add_vertices!(G,last_node)
-for n in
-    1:Int64(size(tred)[1])
+last_node = lastindex(Nodes)
+add_vertices!(g, last_node)
+add_vertices!(G, last_node)
+for n in 1:Int64(size(tred)[1])
     add_edge!(g,dic_nodes[tred[n,1]],
               dic_nodes[tred[n,2]],
               tred[n,3])
@@ -51,7 +50,7 @@ Now the Node2Vec algorithm. First the walks
 
 ```julia
 # simulate_walks(network,num,length,p,q)
-walks=simulate_walks(g,5,80,2,2)
+walks = simulate_walks(g,5,80,2,2)
 ```
 
 It is possible to create your own simulated walks with `node2vec_walk(network,node,length,p,q)`, the function `simulate_walks` randomly shuffles the initial node to avoid the [first-mover advantage](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.052301).
@@ -59,16 +58,16 @@ It is possible to create your own simulated walks with `node2vec_walk(network,no
 Then we do the Word2Vec step through [Word2Vec.jl](https://github.com/JuliaText/Word2Vec.jl). It strangely takes the character "</s>" as a word so we cut it.
 
 ```julia
-model=learn_embeddings(walks)
-vectors=model.vectors
+model = learn_embeddings(walks)
+vectors = model.vectors
 ```
 
 In order to plot the embedded network we need to perform a dimensionality reduction (working on the parameters)
 
 ```julia
-vectors=model.vectors
-senators=vectors[:,2:size(vectors)[2]]
-dv=tsne(senators')
+vectors = model.vectors
+senators = vectors[:,2:size(vectors)[2]]
+dv = tsne(senators')
 ```
 
 The current network is a representation of the Mexican Senate so we want to color each node projection by their party affiliation.
@@ -83,26 +82,26 @@ for j in 1:128
    end
 end
 
-the_nodes=model.vocab[2:end]
+the_nodes = model.vocab[2:end]
 nodes_num = map(x->parse(Int64,x),the_nodes)
-ord_party=Array{Any}(undef,128)
+ord_party = Vector{Any}(undef,128)
 for i in eachindex(nodes_num)
     ord_party[i]=get_order[nodes_num[i]]
 end
 
-for i in 1:size(ord_party)[1]
-    if ord_party[i]=="PRI"
-        ord_party[i]=1
-    elseif ord_party[i]=="PAN"
-        ord_party[i]=2
-    elseif ord_party[i]=="PRD"
-        ord_party[i]=3
-    elseif ord_party[i]=="PVEM"
-        ord_party[i]=4
-    elseif ord_party[i]=="PT"
-        ord_party[i]=5
-    elseif ord_party[i]=="Independiente"
-        ord_party[i]=6
+for i in eachindex(ord_party)
+    if ord_party[i] == "PRI"
+        ord_party[i] = 1
+    elseif ord_party[i] == "PAN"
+        ord_party[i] = 2
+    elseif ord_party[i] == "PRD"
+        ord_party[i] = 3
+    elseif ord_party[i] == "PVEM"
+        ord_party[i] = 4
+    elseif ord_party[i] == "PT"
+        ord_party[i] = 5
+    elseif ord_party[i] == "Independiente"
+        ord_party[i] = 6
     end
 end
 nodecolor = [colorant"red",colorant"blue",colorant"yellow",colorant"green",colorant"orange",colorant"violet"]
