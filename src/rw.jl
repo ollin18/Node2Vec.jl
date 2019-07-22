@@ -60,10 +60,17 @@ function preprocess_transition_probs(g,p,q)
         alias_nodes[node]=alias_setup(normalized_probs)
     end
     alias_edges=Dict()
+    ## Directed networks
+    if is_directed(g)
+        for e in edges(g)
+            alias_edges[(e.src,e.dst)]=get_alias_edge(g,e.src,e.dst,p,q)
+        end
+    else
     ## Undirected networks
-    for e in edges(g)
-        alias_edges[(e.src,e.dst)]=get_alias_edge(g,e.src,e.dst,p,q)
-        alias_edges[(e.dst,e.src)]=get_alias_edge(g,e.dst,e.src,p,q)
+        for e in edges(g)
+            alias_edges[(e.src,e.dst)]=get_alias_edge(g,e.src,e.dst,p,q)
+            alias_edges[(e.dst,e.src)]=get_alias_edge(g,e.dst,e.src,p,q)
+        end
     end
     alias_nodes, alias_edges
 end
