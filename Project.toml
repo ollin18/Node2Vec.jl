@@ -13,4 +13,4 @@ TSne = "24678dba-d5e9-5843-a4c6-250288b04835"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
-julia = ">0.7"
+julia = "1"
