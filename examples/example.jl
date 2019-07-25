@@ -11,12 +11,12 @@ G = Graph()
 last_node = Int64(length(Nodes))
 add_vertices!(g,last_node)
 add_vertices!(G,last_node)
-for n in
-    1:Int64(size(tred)[1])
-    add_edge!(g,dic_nodes[tred[n,1]],
+
+for n in 1:Int64(size(tred)[1])
+     add_edge!(g,dic_nodes[tred[n,1]],
               dic_nodes[tred[n,2]],
               tred[n,3])
-    add_edge!(G,dic_nodes[tred[n,1]],
+     add_edge!(G,dic_nodes[tred[n,1]],
               dic_nodes[tred[n,2]])
 end
 

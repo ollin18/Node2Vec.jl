@@ -28,8 +28,14 @@ function simulate_walks(g,num_walks,len,p,q)
     nodes=vertices(g) |> collect
     for i in 1:num_walks
         nodes=shuffle(nodes)
-        for node in nodes
-            push!(walks,node2vec_walk(g,node,len,p,q))
+        try
+            nprocs()
+            walks = pmap(x->node2vec_walk(g,x,num_walks,p,q),nodes)
+            walks = vcat(walks,pmap(x->node2vec_walk(g,x,num_walks,p,q),nodes))
+        catch
+            for node in nodes
+                push!(walks,node2vec_walk(g,node,len,p,q))
+            end
         end
     end
     walks
