@@ -1,18 +1,18 @@
-using TSne, Plots, Colors, GraphPlot, LightGraphs, SimpleWeightedGraphs,DelimitedFiles, StatsBase
+@everywhere using TSne, Plots, Colors, GraphPlot, LightGraphs, SimpleWeightedGraphs,DelimitedFiles, StatsBase, Node2Vec, Random
 
-tred=readdlm("data/networks/adyacencias.csv",'|')
-Nodes=readdlm("data/networks/los_nombres.csv",',')
-sen=readdlm("data/networks/senators.csv",'|')
-partidos=readdlm("data/networks/los_partidos.csv",'|')
+@everywhere tred=readdlm("data/networks/adyacencias.csv",'|')
+@everywhere Nodes=readdlm("data/networks/los_nombres.csv",',')
+@everywhere sen=readdlm("data/networks/senators.csv",'|')
+@everywhere partidos=readdlm("data/networks/los_partidos.csv",'|')
 
-dic_nodes = Dict{String,Int64}(Dict(Nodes[i]=>i for i in 1:length(Nodes)))
-g = SimpleWeightedGraph()
-G = Graph()
-last_node = Int64(length(Nodes))
-add_vertices!(g,last_node)
-add_vertices!(G,last_node)
+@everywhere dic_nodes = Dict{String,Int64}(Dict(Nodes[i]=>i for i in 1:length(Nodes)))
+@everywhere g = SimpleWeightedGraph()
+@everywhere G = Graph()
+@everywhere last_node = Int64(length(Nodes))
+@everywhere add_vertices!(g,last_node)
+@everywhere add_vertices!(G,last_node)
 
-for n in 1:Int64(size(tred)[1])
+@everywhere for n in 1:Int64(size(tred)[1])
      add_edge!(g,dic_nodes[tred[n,1]],
               dic_nodes[tred[n,2]],
               tred[n,3])
@@ -20,7 +20,7 @@ for n in 1:Int64(size(tred)[1])
               dic_nodes[tred[n,2]])
 end
 
-walks=simulate_walks(g,5,80,2,2)
+@time walks=simulate_walks(g,50,80,2,2)
 model=learn_embeddings(walks)
 vectors=model.vectors
 senators=vectors[:,2:size(vectors)[2]]

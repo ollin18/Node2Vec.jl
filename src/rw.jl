@@ -26,13 +26,14 @@ end
 function simulate_walks(g,num_walks,len,p,q)
     walks=Array{Array}(undef,0)
     nodes=vertices(g) |> collect
-    for i in 1:num_walks
-        nodes=shuffle(nodes)
-        try
-            nprocs()
-            walks = pmap(x->node2vec_walk(g,x,num_walks,p,q),nodes)
-            walks = vcat(walks,pmap(x->node2vec_walk(g,x,num_walks,p,q),nodes))
-        catch
+    try
+        nprocs()
+        walks = pmap(x->node2vec_walk(g,x,len,p,q),nodes)
+        for i in 1:num_walks
+            walks = vcat(walks,pmap(x->node2vec_walk(g,x,len,p,q),nodes))
+        end
+    catch
+        for i in 1:num_walks
             for node in nodes
                 push!(walks,node2vec_walk(g,node,len,p,q))
             end
