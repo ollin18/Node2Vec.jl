@@ -119,8 +119,16 @@ end
 
 function learn_embeddings(walks)
     str_walks=map(x -> string.(x),walks)
-    writedlm("/tmp/str_walk.txt",str_walks)
-    word2vec("/tmp/str_walk.txt","/tmp/str_walk-vec.txt",verbose=true)
-    model=wordvectors("/tmp/str_walk-vec.txt")
+    if Sys.iswindows()
+        rpath = pwd()
+    else
+        rpath = "/tmp"
+    end
+    the_walks = joinpath(rpath,"str_walk.txt")
+    the_vecs = joinpath(rpath,"str_walk-vec.txt")
+
+    writedlm(the_walks,str_walks)
+    word2vec(the_walks,the_vecs,verbose=true)
+    model=wordvectors(the_vecs)
     model
 end
