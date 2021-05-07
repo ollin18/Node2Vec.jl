@@ -117,7 +117,7 @@ function alias_draw(J,q)
     end
 end
 
-function learn_embeddings(walks)
+function learn_embeddings(walks;size::Int=100)
     str_walks=map(x -> string.(x),walks)
     if Sys.iswindows()
         rpath = pwd()
@@ -128,7 +128,7 @@ function learn_embeddings(walks)
     the_vecs = joinpath(rpath,"str_walk-vec.txt")
 
     writedlm(the_walks,str_walks)
-    word2vec(the_walks,the_vecs,verbose=true)
+    word2vec(the_walks,the_vecs,verbose=true,size=size)
     model=wordvectors(the_vecs)
     model
 end
