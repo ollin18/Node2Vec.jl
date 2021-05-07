@@ -61,6 +61,7 @@ Then we do the Word2Vec step through [Word2Vec.jl](https://github.com/JuliaText/
 model = learn_embeddings(walks)
 vectors = model.vectors
 ```
+You can specify embedding vector length with `size` keyword argument in the `learn_embeddings` function.
 
 In order to plot the embedded network we need to perform a dimensionality reduction (working on the parameters)
 
